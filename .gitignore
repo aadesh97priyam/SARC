@@ -3,6 +3,6 @@
 target/*
 .project
 .classpath
-*.jar
+SARC.jar
 htmlreport/*
 report.txt
