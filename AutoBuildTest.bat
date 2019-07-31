@@ -6,7 +6,7 @@ if exist SARC.jar (
 )
 echo Starting maven
 echo.
-call mvn clean compile test assembly:single
+call mvnw.cmd clean compile test assembly:single
 if exist target\SARC-1.0-jar-with-dependencies.jar (
     move target\SARC-1.0-jar-with-dependencies.jar .
     rename SARC-1.0-jar-with-dependencies.jar SARC.jar

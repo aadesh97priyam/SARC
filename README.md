@@ -19,7 +19,6 @@ Static Analysis Report Combiner (SARC) merges reports from various static code a
 ## Prerequisites
 The project makes use of a batch file in order to build the source files and hence, the target system must have a Windows environment.
 Furthermore, the target system must have Java (>=1.8) installed and available in the system path.
-The project makes use of Maven as the build tool and hence, Maven must also be in the system path.
 
 ## Compiling
 In the root directory of the project, a batch file by the name "AutoBuildTest.bat" is present. 
@@ -110,10 +109,13 @@ usage: SARC
                             format(stdout/plaint_text/html)
  -s,--startmerge            generate and report merge
 ```
-TODO
 
 ### Templates
-TODO
+The templates folder contains the templates for the html report generation. There are two files in this directory: 
+* indextemplate.txt
+* reporttemplate.txt
+
+The indextemplate.txt file contains the template for creating the index page of the report. The reporttemplate.txt contains the template that will be used to create an html report for each source file analysed. 
 
 ## DesignDocs
 ### Class Diagram
