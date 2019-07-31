@@ -3,3 +3,6 @@
 target/*
 .project
 .classpath
+*.jar
+htmlreport/*
+report.txt

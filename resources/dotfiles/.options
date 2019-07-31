@@ -1,0 +1,5 @@
+c,configuration,true,path to the configuration file
+f,configformat,true,format of the configuration file(JSON)
+h,help,false,display help and quit
+o,outputformat,true,generate report in particular format(stdout/plaint_text/html)
+s,startmerge,false,generate and report merge
