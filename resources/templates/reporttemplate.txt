@@ -1,0 +1,10 @@
+<html>
+    <head>
+        <title> ${file} </title>
+    </head>
+    <body>
+        <h2> Report <h2>
+        <h3> for ${file} </h2>
+        ${report}
+    </body>
+</html>

@@ -1,0 +1,12 @@
+<html>
+    <head>
+        <title>Index</title>
+    </head>
+    <body>
+        <h1> SARC Report </h1>
+        <h3> Index Page </h3>
+        <ul>
+            ${list}
+        </ul>
+    </body>
+</html>
