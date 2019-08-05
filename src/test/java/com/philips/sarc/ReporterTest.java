@@ -16,10 +16,12 @@ public class ReporterTest {
     // Test cases generateMergedReport
     @Test
     public void setNullreportAndMerge() {
+        new File("report.txt").delete();
         Reporter r = new Reporter();
         r.generateMergedReport(Reporter.ReportFormat.PLAIN_TEXT);
         File report = new File("report.txt");
         assertEquals(false, report.exists());
+        new File("report.txt").delete();
     }
 
     @Test
@@ -31,11 +33,13 @@ public class ReporterTest {
 
     @Test 
     public void setEmptyReportAndMerge() {
+        new File("report.txt").delete();
         ArrayList<JSONObject> reports = new ArrayList<>();
         Reporter r = new Reporter();
         r.setReports(reports);
         r.generateMergedReport(Reporter.ReportFormat.PLAIN_TEXT);
         assertEquals(false, new File("report.txt").exists());
+        new File("report.txt").delete();
     }
     
     // Test cases for getReports

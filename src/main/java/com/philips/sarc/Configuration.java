@@ -12,16 +12,13 @@ import org.json.simple.parser.JSONParser;
 
 public class Configuration<E> {
 
-    private List<E> configNodes;
+    private Configuration () {
 
-    private Configuration() {
-        configNodes = new ArrayList<>();
     }
 
-    public static <E> Configuration<E> parse(File configFile, Format fileFormat, Class<E> classtype) {
+    public static <E> List<E> parse(File configFile, Format fileFormat, Class<E> classtype) {
         if (configFile == null || fileFormat == null || classtype == null) return null;
-        Configuration<E> configuration =  new Configuration<>();
-        configuration.configNodes = new ArrayList<>();
+        ArrayList<E> configNodes = new ArrayList<>();
         
         switch (fileFormat) {
             case JSON: {
@@ -41,7 +38,7 @@ public class Configuration<E> {
                     JSONObject cNode = (JSONObject) configurationNodes.get(index);
                     try {
                         E object = mapper.readValue(cNode.toJSONString(), classtype);
-                        configuration.configNodes.add(object);
+                        configNodes.add(object);
                     } catch (Exception ex) {
                         System.out.println("[WARN] Skipping one configuration node due to type incompatibility");
                         continue;
@@ -50,14 +47,6 @@ public class Configuration<E> {
 
                 break;
             }
-        }
-
-        return configuration;
-    }
-
-    public List<E> getNodes() {
-        if (configNodes == null) {
-            return new ArrayList<>();
         }
 
         return configNodes;

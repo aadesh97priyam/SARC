@@ -18,25 +18,25 @@ import org.json.simple.JSONObject;
 
 public class Processor implements CLI.Callable {
 
-    @Override
-    public boolean onFlagEncountered(CommandLine cmdline) {
-		File configFile;
+    File configFile;
+    Configuration.Format format;
+
+    private void identifyConfigFile(CommandLine cmdline) {
         if (!cmdline.hasOption("c"))  {
             configFile = new File("resources/dotfiles/.config");
             if (!configFile.exists() || !configFile.isFile()) {
                 System.out.println("[WARN] Aborting as no .config file found in default location and neither is a path provided to one");
-                return false;
             }
         } else {
             String configFilePath = cmdline.getOptionValue("c");
             configFile = new File(configFilePath);
             if (!configFile.exists() || !configFile.isFile()) {
                 System.out.println("[WARN] No file found at given location");
-                return false;
             }
         }
+    }
 
-        Configuration.Format format;
+    private void identifyConfigFormat(CommandLine cmdline) {
         if (cmdline.hasOption("f")) {
             try {
                 format = Configuration.Format.valueOf(cmdline.getOptionValue("f").toUpperCase());
@@ -47,11 +47,9 @@ public class Processor implements CLI.Callable {
         } else {
             format = Configuration.Format.JSON;
         }
+    }
 
-        Configuration<Script> conf = Configuration.parse(configFile, format, Script.class);
-        List<Script> tools = conf.getNodes();
-
-        // TODO: flag for properties and a flag check
+    private List<Script> getScripts(List<Script> tools) {
         Properties properties = new Properties();
         try {
             properties.load(new FileInputStream(new File("resources/dotfiles/.properties")));
@@ -72,6 +70,18 @@ public class Processor implements CLI.Callable {
                 validTools.add(tool);
             }
         }
+
+        return validTools;
+    }
+
+    @Override
+    public boolean onFlagEncountered(CommandLine cmdline) {
+        identifyConfigFile(cmdline);
+        identifyConfigFormat(cmdline);
+        
+        List<Script> tools = Configuration.parse(configFile, format, Script.class);
+
+        List<Script> validTools = getScripts(tools);
 
         ArrayList<JSONObject> results = new ArrayList<>();
         for (Script script : validTools) {
